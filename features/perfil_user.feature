@@ -19,5 +19,5 @@ And eu vejo informações como "Nome", "Foto de perfil", "Bio"
 Scenario: Exibir o livro que o usuário está lendo atualmente
 Given eu estou na pagina de perfil de "luisx3@gmail.com"
 When eu navego ate a seção "Lendo atualmente"
-Then "Titulo","Autor" e "Porcentagem de leitura" são exibidos na nesta seção
+Then "Titulo","Autor" e "Porcentagem de leitura" são exibidos nesta seção
 
