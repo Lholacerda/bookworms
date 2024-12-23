@@ -19,5 +19,12 @@ And eu vejo informações como "Nome", "Foto de perfil", "Bio"
 Scenario: Exibir o livro que o usuário está lendo atualmente
 Given eu estou na pagina de perfil de "luisx3@gmail.com"
 When eu navego ate a seção "Lendo atualmente"
-Then "Titulo","Autor" e "Porcentagem de leitura" são exibidos na nesta seção
+Then "Titulo","Autor" e "Porcentagem de leitura" são exibidos na nesta secao
 
+Scenario: Editar informacoes do perfil
+Given eu estou na minha pagina de perfil logado com o email "luisx3@gmail.com" e senha "senha123"
+And eu seleciono a opção "Editar Perfil"
+When eu atualizo o campo "Bio" com "Amante de livros e aventuras literarias"
+And eu salvo as alteracoes
+Then eu deveria ver a mensagem "Perfil atualizado com sucesso"
+And minha nova bio "Amante de livros e aventuras literárias" e exibida na pagina de perfil
