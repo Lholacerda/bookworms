@@ -21,6 +21,7 @@ defineFeature(feature, (test) => {
       username: 'luisx3',
       email: 'luisx3@gmail.com',
       password: 'senha123',
+      bio: 'bio exemplo'
     }).then(res => res.body);
   });
 
@@ -35,8 +36,7 @@ defineFeature(feature, (test) => {
 
         when('eu atualizo o campo "Bio" com "Amante de livros e aventuras literárias"', () => {});
 
-        and('eu salvo as alterações', async (table) => {
-            const [userData] = table;
+        and('eu salvo as alterações', async () => {
             response = await request(app).post('/users').send(userData);
         });
 
@@ -66,11 +66,12 @@ defineFeature(feature, (test) => {
       
         and('minhas informações de perfil permanecem inalteradas', async () => {
           const updatedUser = await request(app).get('/users');
-          expect(updatedUser.body.bio).toBe(null);
+          expect(updatedUser.body.bio).toBe('bio exemplo');
         });
     });
 
     test('Falha ao editar perfil devido ao campo "Bio" vazio', ({ given, when, then, and }) => {
+        
         given('eu estou na minha página de perfil logado com o email "luisx3@gmail.com" e senha "senha123"', () => {});
       
         and('eu seleciono a opção "Editar Perfil"', () => {});
@@ -90,10 +91,32 @@ defineFeature(feature, (test) => {
       
         and('as informações do perfil permanecem inalteradas', async () => {
           const updatedUser = await request(app).get('/users');
-          expect(updatedUser.body.bio).toBeNull();
+          expect(updatedUser.body.bio).toBe('bio exemplo');
+        });
+      });
+    
+    test('Falha ao editar perfil devido ao campo "Nome" muito longo', ({ given, when, then, and }) => {
+        given('eu estou na minha página de perfil logado com o email "luisx3@gmail.com" e senha "senha123"', () => {});
+    
+        and('eu seleciono a opção "Editar Perfil"', () => {});
+    
+        when('eu preencho o campo "Nome" com mais caracteres que o permitido', async () => {
+            userData.name = 'a'.repeat(256); // Exemplo de nome com 256 caracteres
+        });
+    
+        and('eu salvo as alterações', async () => {
+            response = await request(app).put('/users').send(userData);
+        });
+    
+        then('eu deveria ver uma mensagem de erro "O nome excede o máximo permitido. Por favor tente encurta-lo"', () => {
+          expect(response.status).toBe(400);
+          expect(response.body.message).toBe('O nome excede o máximo permitido. Por favor tente encurta-lo');
+        });
+    
+        and('as informações do perfil permanecem inalteradas', async () => {
+          const updatedUser = await request(app).get('/users');
+          expect(updatedUser.body.name).toBe('Luis Henrique');
         });
       });
 
-
-  });
 });
