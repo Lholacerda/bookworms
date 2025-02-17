@@ -50,12 +50,29 @@ defineFeature(feature, (test) => {
         expect(updatedUser.body.bio).toBe('Amante de livros e aventuras literárias');
     });
 
+    test('Cancelar mudanças feitas', ({ given, when, then, and }) => {
+        given('eu estou na minha página de perfil logado com o email "luisx3@gmail.com" e senha "senha123"', () => {});
+      
+        and('eu seleciono a opção "Editar Perfil"', () => {});
+      
+        when('eu clico na opção "Cancelar"', async () => {
+          response = await request(app).get('/users');
+        });
+      
+        then('eu deveria ver a mensagem "Perfil não foi atualizado"', () => {
+          expect(response.body.message).toBe('Perfil não foi atualizado');
+        });
+      
+        and('minhas informações de perfil permanecem inalteradas', async () => {
+          const updatedUser = await request(app).get('/users');
+          expect(updatedUser.body.bio).toBe(null);
+        });
+    });
 
 
 
 
 
 
-    
   });
 });
