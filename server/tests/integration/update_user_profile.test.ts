@@ -28,26 +28,27 @@ defineFeature(feature, (test) => {
     await connection.close();
   });
 
-  test('Editar informações do perfil', ({ given, when, then, and }) => {
-    given('eu estou na minha página de perfil logado com o email "luisx3@gmail.com" e senha "senha123"',() => {});
+    test('Editar informações do perfil', ({ given, when, then, and }) => {
+        given('eu estou na minha página de perfil logado com o email "luisx3@gmail.com" e senha "senha123"',() => {});
 
-    and('eu seleciono a opção "Editar Perfil"', () => {});
+        and('eu seleciono a opção "Editar Perfil"', () => {});
 
-    when('eu atualizo o campo "Bio" com "Amante de livros e aventuras literárias"', () => {});
+        when('eu atualizo o campo "Bio" com "Amante de livros e aventuras literárias"', () => {});
 
-    and('eu salvo as alterações', async (table) => {
-        const [userData] = table;
-        response = await request(app).post('/users').send(userData);
-      });
+        and('eu salvo as alterações', async (table) => {
+            const [userData] = table;
+            response = await request(app).post('/users').send(userData);
+        });
 
-    then('eu deveria ver a mensagem "Perfil atualizado com sucesso"', () => {
-        expect(response.status).toBe(200);
-        expect(response.body.message).toBe('Perfil atualizado com sucesso');
-    });
+        then('eu deveria ver a mensagem "Perfil atualizado com sucesso"', () => {
+            expect(response.status).toBe(200);
+            expect(response.body.message).toBe('Perfil atualizado com sucesso');
+        });
 
-    and('minha nova bio "Amante de livros e aventuras literárias" e exibida na página de perfil', async () => {
-        const updatedUser = await request(app).get('/users');
-        expect(updatedUser.body.bio).toBe('Amante de livros e aventuras literárias');
+        and('minha nova bio "Amante de livros e aventuras literárias" e exibida na página de perfil', async () => {
+            const updatedUser = await request(app).get('/users');
+            expect(updatedUser.body.bio).toBe('Amante de livros e aventuras literárias');
+        });
     });
 
     test('Cancelar mudanças feitas', ({ given, when, then, and }) => {
@@ -69,9 +70,29 @@ defineFeature(feature, (test) => {
         });
     });
 
-
-
-
+    test('Falha ao editar perfil devido ao campo "Bio" vazio', ({ given, when, then, and }) => {
+        given('eu estou na minha página de perfil logado com o email "luisx3@gmail.com" e senha "senha123"', () => {});
+      
+        and('eu seleciono a opção "Editar Perfil"', () => {});
+      
+        when('eu deixo o campo "Bio" vazio', async () => {
+          userData.bio = '';
+        });
+      
+        and('eu salvo as alterações', async () => {
+          response = await request(app).put('/users').send(userData);
+        });
+      
+        then('eu deveria ver uma mensagem de erro "O campo Bio não pode estar vazio"', () => {
+          expect(response.status).toBe(400);
+          expect(response.body.message).toBe('O campo Bio não pode estar vazio');
+        });
+      
+        and('as informações do perfil permanecem inalteradas', async () => {
+          const updatedUser = await request(app).get('/users');
+          expect(updatedUser.body.bio).toBeNull();
+        });
+      });
 
 
   });
