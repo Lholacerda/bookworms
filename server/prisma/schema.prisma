@@ -21,6 +21,19 @@ model User {
   coments  Comment[]
   posts    Post[]
   group    Groups?   @relation(fields: [groupId], references: [id])
+  currentBookTitle     String?
+  currentBookAuthor    String?
+  currentBookCover     String?
+  currentBookProgress  Int      @default(0)
+  topBook1Title        String?
+  topBook1Author       String?
+  topBook1Cover        String?
+  topBook2Title        String?
+  topBook2Author       String?
+  topBook2Cover        String?
+  topBook3Title        String?
+  topBook3Author       String?
+  topBook3Cover        String?
 }
 
 model Post {
