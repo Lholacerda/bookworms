@@ -14,6 +14,18 @@ declare module 'next-auth' {
       bio: string;
       image: string;
       groupId: string;
+      currentBookTitle: string;
+      currentBookAuthor: string;
+      currentBookCover: string;
+      topBook1Title: string;
+      topBook1Author: string;
+      topBook1Cover: string;
+      topBook2Title: string;
+      topBook2Author: string;
+      topBook2Cover: string;
+      topBook3Title: string;
+      topBook3Author: string;
+      topBook3Cover: string;
     };
   }
 
@@ -26,6 +38,18 @@ declare module 'next-auth' {
     bio: string;
     image: string;
     groupId: string;
+    currentBookTitle: string;
+    currentBookAuthor: string;
+    currentBookCover: string;
+    topBook1Title: string;
+    topBook1Author: string;
+    topBook1Cover: string;
+    topBook2Title: string;
+    topBook2Author: string;
+    topBook2Cover: string;
+    topBook3Title: string;
+    topBook3Author: string;
+    topBook3Cover: string;
   }
 }
 
@@ -40,6 +64,18 @@ declare module 'next-auth/jwt' {
       bio: string;
       image: string;
       groupId: string;
+      currentBookTitle: string;
+      currentBookAuthor: string;
+      currentBookCover: string;
+      topBook1Title: string;
+      topBook1Author: string;
+      topBook1Cover: string;
+      topBook2Title: string;
+      topBook2Author: string;
+      topBook2Cover: string;
+      topBook3Title: string;
+      topBook3Author: string;
+      topBook3Cover: string;
     };
   }
 }
@@ -53,6 +89,18 @@ interface UserRes {
   bio: string;
   image: string;
   groupId: string;
+  currentBookTitle: string;
+  currentBookAuthor: string;
+  currentBookCover: string;
+  topBook1Title: string;
+  topBook1Author: string;
+  topBook1Cover: string;
+  topBook2Title: string;
+  topBook2Author: string;
+  topBook2Cover: string;
+  topBook3Title: string;
+  topBook3Author: string;
+  topBook3Cover: string;
 }
 
 interface ApiResponse {
@@ -71,8 +119,6 @@ export const nextAuthOptions: NextAuthOptions = {
         emailORusername: { label: 'Email or Username', type: 'text' },
         password: { label: 'Password', type: 'password' }
       },
-
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async authorize(credentials, req) {
         try {
           const response = await api.post<ApiResponse>('/sessions', {
@@ -107,14 +153,25 @@ export const nextAuthOptions: NextAuthOptions = {
           score: user.score,
           bio: user.bio,
           image: user.image,
-          groupId: user.groupId
+          groupId: user.groupId,
+          currentBookTitle: user.currentBookTitle,
+          currentBookAuthor: user.currentBookAuthor,
+          currentBookCover: user.currentBookCover,
+          topBook1Title: user.topBook1Title,
+          topBook1Author: user.topBook1Author,
+          topBook1Cover: user.topBook1Cover,
+          topBook2Title: user.topBook2Title,
+          topBook2Author: user.topBook2Author,
+          topBook2Cover: user.topBook2Cover,
+          topBook3Title: user.topBook3Title,
+          topBook3Author: user.topBook3Author,
+          topBook3Cover: user.topBook3Cover
         };
       }
       return token;
     },
 
     async session({ session, token }) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       session.user = {
         id: token.user.id,
         name: token.user.name,
@@ -123,7 +180,19 @@ export const nextAuthOptions: NextAuthOptions = {
         score: token.user.score,
         bio: token.user.bio,
         image: token.user.image,
-        groupId: token.user.groupId
+        groupId: token.user.groupId,
+        currentBookTitle: token.user.currentBookTitle,
+        currentBookAuthor: token.user.currentBookAuthor,
+        currentBookCover: token.user.currentBookCover,
+        topBook1Title: token.user.topBook1Title,
+        topBook1Author: token.user.topBook1Author,
+        topBook1Cover: token.user.topBook1Cover,
+        topBook2Title: token.user.topBook2Title,
+        topBook2Author: token.user.topBook2Author,
+        topBook2Cover: token.user.topBook2Cover,
+        topBook3Title: token.user.topBook3Title,
+        topBook3Author: token.user.topBook3Author,
+        topBook3Cover: token.user.topBook3Cover
       };
       return session;
     }
