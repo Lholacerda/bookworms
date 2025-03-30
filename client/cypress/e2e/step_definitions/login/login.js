@@ -1,7 +1,7 @@
 const { Given, When, Then } = require('cypress-cucumber-preprocessor/steps')
 
 Given("I'm on the front page", () => {
-  cy.visit('http://localhost:3000')
+  cy.visit('http://localhost:3000/Login')
 })
 
 When("I type the username and the password", () => {

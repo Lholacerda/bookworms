@@ -17,7 +17,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
     <div
       className={`w-full h-auto flex items-center gap-2 ${
         showBackButton ? 'p-4' : 'p-7'
-      } rounded-lg   border rounded-[20px] border-gray`}
+      } rounded-3xl  border border-gray`}
     >
       {showBackButton && (
         <button
@@ -27,7 +27,7 @@ const PageTitle: React.FC<PageTitleProps> = ({
           <Image src={Arrow} alt="arrow" />
         </button>
       )}
-      <h1 className="text-2xl font-black font-nunito text-borrowDark m-0">
+      <h1 className="text-xl font-black font-nunito text-borrowDark m-0">
         {title}
       </h1>
     </div>
