@@ -1,4 +1,4 @@
-const { Given, When, Then } = require('cypress-cucumber-preprocessor/steps');
+import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps';
 
 Given('O usuário está na página de login', () => {
   cy.visit('http://localhost:3000/Login');
