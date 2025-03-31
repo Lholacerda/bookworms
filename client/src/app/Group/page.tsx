@@ -221,6 +221,7 @@ export default function Group() {
       <div className="flex flex-row p-10 justify-around">
         <div className="flex flex-col">
           <GroupCover
+            data-cy="group-cover"
             name={group.name}
             date={handledate(group.duration)}
             type={group.type}
@@ -244,6 +245,7 @@ export default function Group() {
                 }}
               />
               <CustomButton
+                data-cy="add-post"
                 label={'+ Adicionar publicação'}
                 variant={'dark'}
                 onClick={() => router.push('/CreateEditPost')}
@@ -260,6 +262,7 @@ export default function Group() {
               <div className="flex flex-col gap-2">
                 {posts.map((post) => (
                   <PostCard
+                    data-cy="post-card"
                     key={post.id}
                     postText={post.title}
                     author={post.author?.name || 'Unknown Author'}
